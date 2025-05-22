@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bingo Plus: Lion vs Tiger Prediction</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background: #f0f0f5;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  .buttons {
+    margin: 20px 0;
+  }
+  button {
+    font-size: 18px;
+    padding: 12px 25px;
+    margin: 0 15px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #45a049;
+  }
+  .result {
+    font-size: 22px;
+    margin: 20px 0;
+    font-weight: bold;
+  }
+  .stats {
+    margin-top: 30px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Bingo Plus: Lion vs Tiger Prediction</h1>
+<p>Choose who you think will win this round:</p>
+
+<div class="buttons">
+  <button onclick="makePrediction('Lion')">Lion</button>
+  <button onclick="makePrediction('Tiger')">Tiger</button>
+</div>
+
+<div class="result" id="result"></div>
+
+<div class="stats" id="stats">
+  Correct Predictions: 0<br />
+  Wrong Predictions: 0
+</div>
+
+<script>
+  let correct = 0;
+  let wrong = 0;
+
+  // Mock API function simulating real game data from a server
+  async function fetchGameResult() {
+    // Simulate delay and get random winner for demo
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const winners = ['Lion', 'Tiger'];
+        const winner = winners[Math.floor(Math.random() * winners.length)];
+        resolve(winner);
+      }, 1000); // 1 second delay to simulate fetching
+    });
+  }
+
+  async function makePrediction(userChoice) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = 'Getting real game result...';
+
+    const winner = await fetchGameResult();
+
+    resultDiv.textContent = `Winner is: ${winner}! You predicted: ${userChoice}.`;
+
+    if (userChoice === winner) {
+      correct++;
+      resultDiv.textContent += ' You guessed correctly!';
+    } else {
+      wrong++;
+      resultDiv.textContent += ' Sorry, wrong guess.';
+    }
+
+    const statsDiv = document.getElementById('stats');
+    statsDiv.innerHTML = `Correct Predictions: ${correct}<br />Wrong Predictions: ${wrong}`;
+  }
+</script>
+
+</body>
+</html>
